@@ -6,6 +6,7 @@ from apps.ml.registry import MLRegistry
 from django.test import TestCase
 
 from apps.ml.income_classifier.linear_regression_3D import LinearRegression
+from apps.ml.income_classifier.linear_regression import LinearRegression_NoDegree
 
 class MLTests(TestCase):
     def test_rf_algorithm(self):
@@ -37,3 +38,6 @@ class MLTests(TestCase):
                     algorithm_description, algorithm_code)
         # there should be one endpoint available
         self.assertEqual(len(registry.endpoints), 1)
+
+    
+
