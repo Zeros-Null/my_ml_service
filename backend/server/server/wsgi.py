@@ -14,3 +14,25 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'server.settings')
 
 application = get_wsgi_application()
+
+# ML registry
+import inspect
+from apps.ml.registry import MLRegistry
+from apps.ml.income_classifier.linear_regression_3D import LinearRegression
+
+try:
+    registry = MLRegistry() # create ML registry
+    # Random Forest classifier
+    rf = LinearRegression()
+    # add to ML registry
+    registry.add_algorithm(endpoint_name="Chemical Oxygen Prediction by 1 Hour Later",
+                            algorithm_object=rf,
+                            algorithm_name="linear regression",
+                            algorithm_status="production",
+                            algorithm_version="0.0.1",
+                            owner="Piotr",
+                            algorithm_description="linear regression with Degree 3, Month 12",
+                            algorithm_code=inspect.getsource(LinearRegression))
+
+except Exception as e:
+    print("Exception while loading the algorithms to the registry,", str(e))
